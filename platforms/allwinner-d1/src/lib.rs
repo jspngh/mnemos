@@ -33,15 +33,9 @@ pub use mnemos_d1_core::*;
 pub use d1_config::PlatformConfig;
 use d1_config::{LedBlinkPin, Mapping};
 
-const HEAP_SIZE: usize = 384 * 1024 * 1024;
-
-#[link_section = ".aheap.AHEAP"]
-#[used]
-static AHEAP_BUF: Ram<HEAP_SIZE> = Ram::new();
-
 pub fn kernel_entry(config: mnemos_config::MnemosConfig<PlatformConfig>) -> ! {
     unsafe {
-        initialize_heap(&AHEAP_BUF);
+        initialize_heap();
     }
 
     let mut p = unsafe { d1_pac::Peripherals::steal() };
@@ -472,9 +466,17 @@ static AHEAP: MnemosAlloc<SingleThreadedLinkedListAllocator> = MnemosAlloc::new(
 /// # Safety
 ///
 /// Only call this once!
-pub unsafe fn initialize_heap<const HEAP_SIZE: usize>(buf: &'static Ram<HEAP_SIZE>) {
+pub unsafe fn initialize_heap() {
+    extern "C" {
+        static _sheap: u8;
+        static _heap_size: u8;
+    }
+
+    let start = &_sheap as *const u8;
+    let len = &_heap_size as *const u8 as usize;
+
     AHEAP
-        .init(NonNull::new(buf.as_ptr()).unwrap(), HEAP_SIZE)
+        .init(NonNull::new(start.cast_mut()).unwrap(), len)
         .expect("heap should only be initialized once!");
 }
 
