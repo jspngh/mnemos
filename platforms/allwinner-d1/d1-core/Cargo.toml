@@ -24,7 +24,7 @@ critical-section = "1.1.1"
 
 [target.'cfg(any(target_arch = "riscv64", target_arch = "riscv32"))'.dependencies]
 riscv = "0.10.0"
-riscv-rt = "0.11"
+riscv-rt = { git = "https://github.com/jspngh/riscv-rt.git", branch = "bugfix/jalr-to-abort" }
 
 # kernel
 [dependencies.mnemos]

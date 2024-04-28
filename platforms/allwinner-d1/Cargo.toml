@@ -52,7 +52,8 @@ mnemos-d1-core = { path = "./d1-core" }
 
 d1-pac = "0.0.31"
 critical-section = "1.1.1"
-riscv-rt = "0.11.0"
+riscv = { version = "0.10", features = ["critical-section-single-hart"] }
+riscv-rt = { git = "https://github.com/jspngh/riscv-rt.git", branch = "bugfix/jalr-to-abort" }
 
 # kernel
 [dependencies.mnemos]
@@ -67,7 +68,3 @@ optional = true
 version = "0.1.37"
 features = ["attributes"]
 default-features = false
-
-[dependencies.riscv]
-version = "0.10"
-features =[ "critical-section-single-hart"]

@@ -2341,7 +2341,7 @@ version = "0.5.0"
 source = "git+https://github.com/esp-rs/esp-hal?rev=5a8be302b4049a6ebc17bd712d97c85a9fd83f76#5a8be302b4049a6ebc17bd712d97c85a9fd83f76"
 dependencies = [
  "riscv",
- "riscv-rt-macros",
+ "riscv-rt-macros 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -6919,12 +6919,11 @@ checksum = "da39f4a5642a62e8e16bb438c37e6f90ea388ca0b7960fe875ea39887155d6ba"
 [[package]]
 name = "riscv-rt"
 version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "102c52c89defde24dedf9ac077cc69df77b85aa2400dd2d5aad6eea6a6a5c089"
+source = "git+https://github.com/jspngh/riscv-rt.git?branch=bugfix/jalr-to-abort#8c12c9266c42e3dec6d63a4eaadd803d69fc7e7c"
 dependencies = [
  "r0",
  "riscv",
- "riscv-rt-macros",
+ "riscv-rt-macros 0.2.0 (git+https://github.com/jspngh/riscv-rt.git?branch=bugfix/jalr-to-abort)",
  "riscv-target",
 ]
 
@@ -6933,6 +6932,16 @@ name = "riscv-rt-macros"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f38509d7b17c2f604ceab3e5ff8ac97bb8cd2f544688c512be75c715edaf4daf"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
+]
+
+[[package]]
+name = "riscv-rt-macros"
+version = "0.2.0"
+source = "git+https://github.com/jspngh/riscv-rt.git?branch=bugfix/jalr-to-abort#8c12c9266c42e3dec6d63a4eaadd803d69fc7e7c"
 dependencies = [
  "proc-macro2",
  "quote",
